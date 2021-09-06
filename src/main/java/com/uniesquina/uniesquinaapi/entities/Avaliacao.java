@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Avaliacao {
@@ -15,6 +16,9 @@ public class Avaliacao {
     private Long id;
     private Double nota;
     private Date data;
+
+    private List<Aluno> alunos;
+    private List<Resultado> resultados;
 
     public Avaliacao() {
     }
@@ -47,5 +51,17 @@ public class Avaliacao {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public List<Resultado> getResultados() {
+        return resultados;
+    }
+
+    public void addResultado(Resultado resultado) {
+        this.resultados.add(resultado);
     }
 }
