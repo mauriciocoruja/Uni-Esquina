@@ -1,13 +1,13 @@
 package com.uniesquina.uniesquinaapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "tb_aluno")
 public class Aluno {
 
     @Id
@@ -16,24 +16,30 @@ public class Aluno {
     private String nome;
     private String cpf;
     private Date nascimento;
+
+    @JoinColumns({
+            @JoinColumn(name = "turma_id", referencedColumnName = "turma_id"),
+            @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id")
+    })
+    @OneToOne
     private Matricula matricula;
 
-    private List<Avaliacao> avaliacoes;
-    private List<Turma> turmas;
-    private List<Resultado> resultados;
+    private Set<Turma> turmas = new HashSet<>();
+
+    @ManyToMany(mappedBy = "alunos")
+    private Set<Avaliacao> avaliacoes = new HashSet<>();
+
+    private Set<Resultado> resultados = new HashSet<>();
 
     public Aluno() {
     }
 
-    public Aluno(Long id, String nome, String cpf, Date nascimento, Matricula matricula, List<Avaliacao> avaliacoes, List<Turma> turmas, List<Resultado> resultados) {
+    public Aluno(Long id, String nome, String cpf, Date nascimento, Matricula matricula) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.nascimento = nascimento;
         this.matricula = matricula;
-        this.avaliacoes = avaliacoes;
-        this.turmas = turmas;
-        this.resultados = resultados;
     }
 
     public Long getId() {
@@ -76,11 +82,11 @@ public class Aluno {
         this.matricula = matricula;
     }
 
-    public List<Avaliacao> getAvaliacoes() {
+    public Set<Avaliacao> getAvaliacoes() {
         return avaliacoes;
     }
 
-    public List<Turma> getTurmas() {
+    public Set<Turma> getTurmas() {
         return turmas;
     }
 
@@ -88,7 +94,7 @@ public class Aluno {
         this.turmas.add(turma);
     }
 
-    public List<Resultado> getResultados() {
+    public Set<Resultado> getResultados() {
         return resultados;
     }
 

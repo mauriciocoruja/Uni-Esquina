@@ -1,25 +1,29 @@
 package com.uniesquina.uniesquinaapi.entities;
 
+import com.uniesquina.uniesquinaapi.entities.pk.MatriculaPK;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Entity
+@Table(name = "matricula")
 public class Matricula {
+
+    @EmbeddedId
+    private MatriculaPK id = new MatriculaPK();
     private Date dataMatricula;
     private Integer prestacoes;
-    private Turma turma;
-
-    private List<Aluno> alunos;
 
     public Matricula() {
     }
 
-    public Matricula(Date dataMatricula, Integer prestacoes, Turma turma, List<Aluno> alunos) {
+    public Matricula(Aluno aluno, Turma turma, Date dataMatricula, Integer prestacoes) {
+        id.setAluno(aluno);
+        id.setTurma(turma);
         this.dataMatricula = dataMatricula;
         this.prestacoes = prestacoes;
-        this.turma = turma;
-        this.alunos = alunos;
     }
 
     public Date getDataMatricula() {
@@ -38,19 +42,20 @@ public class Matricula {
         this.prestacoes = prestacoes;
     }
 
-    public Turma getTurma() {
-        return turma;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Matricula matricula = (Matricula) o;
+
+        if (!id.equals(matricula.id)) return false;
+
+        return true;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-    public void addAlunos(Aluno aluno) {
-        this.alunos.add(aluno);
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

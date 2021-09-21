@@ -1,13 +1,13 @@
 package com.uniesquina.uniesquinaapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "tb_avaliacao")
 public class Avaliacao {
     private static final long serialVersionUID = 1L;
 
@@ -17,8 +17,17 @@ public class Avaliacao {
     private Double nota;
     private Date data;
 
-    private List<Aluno> alunos;
-    private List<Resultado> resultados;
+    @ManyToMany
+    @JoinTable(
+            name = "tb_avaliacoes_aluno",
+            joinColumns =
+            @JoinColumn(name = "avaliacao_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "aluno_id", referencedColumnName = "id"))
+    private Set<Aluno> alunos = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.avaliacao")
+    private Set<Resultado> resultados = new HashSet<>();
 
     public Avaliacao() {
     }
@@ -53,11 +62,11 @@ public class Avaliacao {
         this.data = data;
     }
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public List<Resultado> getResultados() {
+    public Set<Resultado> getResultados() {
         return resultados;
     }
 
