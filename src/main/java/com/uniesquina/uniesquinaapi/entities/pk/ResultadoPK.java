@@ -5,6 +5,7 @@ import com.uniesquina.uniesquinaapi.entities.Avaliacao;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ResultadoPK implements Serializable {
@@ -41,8 +42,8 @@ public class ResultadoPK implements Serializable {
 
         ResultadoPK that = (ResultadoPK) o;
 
-        if (aluno != null ? !aluno.equals(that.aluno) : that.aluno != null) return false;
-        return avaliacao != null ? avaliacao.equals(that.avaliacao) : that.avaliacao == null;
+        if (!Objects.equals(aluno, that.aluno)) return false;
+        return Objects.equals(avaliacao, that.avaliacao);
     }
 
     @Override
