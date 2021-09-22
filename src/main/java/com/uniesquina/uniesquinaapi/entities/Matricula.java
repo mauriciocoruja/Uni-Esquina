@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "matricula")
+@Table(name = "tb_matricula")
 public class Matricula {
 
     @EmbeddedId

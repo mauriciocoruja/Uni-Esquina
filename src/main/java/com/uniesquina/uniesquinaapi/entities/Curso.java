@@ -1,12 +1,10 @@
 package com.uniesquina.uniesquinaapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "tb_curso")
 public class Curso {
 
     @Id
@@ -17,6 +15,7 @@ public class Curso {
     private Double valor;
     private Double notaMinima;
 
+    @OneToMany(mappedBy = "curso")
     private List<Turma> turmas;
 
     public Curso() {

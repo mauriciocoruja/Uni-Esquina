@@ -17,18 +17,16 @@ public class Aluno {
     private String cpf;
     private Date nascimento;
 
-    @JoinColumns({
-            @JoinColumn(name = "turma_id", referencedColumnName = "turma_id"),
-            @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id")
-    })
-    @OneToOne
+    @OneToOne(mappedBy = "id.aluno")
     private Matricula matricula;
 
+    @ManyToMany(mappedBy = "alunos")
     private Set<Turma> turmas = new HashSet<>();
 
     @ManyToMany(mappedBy = "alunos")
     private Set<Avaliacao> avaliacoes = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.aluno")
     private Set<Resultado> resultados = new HashSet<>();
 
     public Aluno() {
@@ -86,13 +84,13 @@ public class Aluno {
         return avaliacoes;
     }
 
-    public Set<Turma> getTurmas() {
-        return turmas;
-    }
-
-    public void addTurma(Turma turma) {
-        this.turmas.add(turma);
-    }
+//    public Set<Turma> getTurmas() {
+//        return turmas;
+//    }
+//
+//    public void addTurma(Turma turma) {
+//        this.turmas.add(turma);
+//    }
 
     public Set<Resultado> getResultados() {
         return resultados;

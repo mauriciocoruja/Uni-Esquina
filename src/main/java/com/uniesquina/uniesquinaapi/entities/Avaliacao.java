@@ -8,7 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_avaliacao")
-public class Avaliacao {
+public class
+Avaliacao {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,6 +29,14 @@ public class Avaliacao {
 
     @OneToMany(mappedBy = "id.avaliacao")
     private Set<Resultado> resultados = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
+
+    public Turma getTurma() {
+        return turma;
+    }
 
     public Avaliacao() {
     }

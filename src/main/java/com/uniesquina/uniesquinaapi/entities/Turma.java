@@ -1,13 +1,12 @@
 package com.uniesquina.uniesquinaapi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "tb_turma")
 public class Turma {
 
     @Id
@@ -16,24 +15,35 @@ public class Turma {
     private String codigoTurma;
     private Date dataInicio;
     private Integer numeroVagas;
+
+    @ManyToOne
     private Curso curso;
 
-    private List<Aluno> alunos;
-    private List<Avaliacao> avaliacoes;
-    private List<Matricula> matriculas;
+    @OneToMany
+    @JoinTable(
+            name = "tb_turma_alunos",
+            joinColumns =
+            @JoinColumn(name = "turma_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "aluno_id", referencedColumnName = "id"))
+    private Set<Aluno> alunos = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "turma")
+    private Set<Avaliacao> avaliacoes = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.turma")
+    private Set<Matricula> matriculas = new HashSet<>();
 
     public Turma() {
     }
 
-    public Turma(Long id, String codigoTurma, Date dataInicio, Integer numeroVagas, Curso curso, List<Aluno> alunos, List<Avaliacao> avaliacoes, List<Matricula> matriculas) {
+    public Turma(Long id, String codigoTurma, Date dataInicio, Integer numeroVagas, Curso curso) {
         this.id = id;
         this.codigoTurma = codigoTurma;
         this.dataInicio = dataInicio;
         this.numeroVagas = numeroVagas;
         this.curso = curso;
-        this.alunos = alunos;
-        this.avaliacoes = avaliacoes;
-        this.matriculas = matriculas;
     }
 
     public Long getId() {
@@ -76,27 +86,16 @@ public class Turma {
         this.curso = curso;
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
+//    public Set<Aluno> getAlunos() {
+//        return alunos;
+//    }
 
-    public List<Avaliacao> getAvaliacoes() {
+    public Set<Avaliacao> getAvaliacoes() {
         return avaliacoes;
     }
 
-    public List<Matricula> getMatriculas() {
+    public Set<Matricula> getMatriculas() {
         return matriculas;
     }
 
-    public void addAluno(Aluno aluno) {
-        this.alunos.add(aluno);
-    }
-
-    public void addAvaliacao(Avaliacao avaliacao) {
-        this.avaliacoes.add(avaliacao);
-    }
-
-    public void addMatricula(Matricula matricula) {
-        this.matriculas.add(matricula);
-    }
 }
