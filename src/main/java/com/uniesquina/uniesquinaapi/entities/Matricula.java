@@ -5,11 +5,13 @@ import com.uniesquina.uniesquinaapi.entities.pk.MatriculaPK;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "tb_matricula")
-public class Matricula {
+public class Matricula implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private MatriculaPK id = new MatriculaPK();
@@ -57,5 +59,9 @@ public class Matricula {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public void setAluno(Aluno aluno) {
+        id.setAluno(aluno);
     }
 }

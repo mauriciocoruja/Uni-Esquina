@@ -1,13 +1,16 @@
 package com.uniesquina.uniesquinaapi.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_turma")
-public class Turma {
+public class Turma implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +20,7 @@ public class Turma {
     private Integer numeroVagas;
 
     @ManyToOne
+    @JoinColumn(name = "curso_id")
     private Curso curso;
 
     @OneToMany
@@ -86,9 +90,9 @@ public class Turma {
         this.curso = curso;
     }
 
-//    public Set<Aluno> getAlunos() {
-//        return alunos;
-//    }
+    public Set<Aluno> getAlunos() {
+        return alunos;
+    }
 
     public Set<Avaliacao> getAvaliacoes() {
         return avaliacoes;
@@ -98,4 +102,16 @@ public class Turma {
         return matriculas;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Turma)) return false;
+        Turma turma = (Turma) o;
+        return Objects.equals(getId(), turma.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

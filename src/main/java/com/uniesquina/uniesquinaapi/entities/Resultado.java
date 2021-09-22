@@ -5,11 +5,13 @@ import com.uniesquina.uniesquinaapi.entities.pk.ResultadoPK;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_resultado")
-public class Resultado {
+public class Resultado implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private ResultadoPK id = new ResultadoPK();

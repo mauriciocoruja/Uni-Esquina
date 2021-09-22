@@ -1,11 +1,15 @@
 package com.uniesquina.uniesquinaapi.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_curso")
-public class Curso {
+public class Curso implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,17 +20,17 @@ public class Curso {
     private Double notaMinima;
 
     @OneToMany(mappedBy = "curso")
-    private List<Turma> turmas;
+    private Set<Turma> turmas = new HashSet<>();
 
     public Curso() {
     }
 
-    public Curso(Long id, String nome, Double valor, Double notaMinima, List<Turma> turmas) {
+    public Curso(Long id, String nome, Integer cargaHoraria, Double valor, Double notaMinima) {
         this.id = id;
         this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
         this.valor = valor;
         this.notaMinima = notaMinima;
-        this.turmas = turmas;
     }
 
     public Long getId() {
@@ -69,11 +73,24 @@ public class Curso {
         this.notaMinima = notaMinima;
     }
 
-    public List<Turma> getTurmas() {
+    public Set<Turma> getTurmas() {
         return turmas;
     }
 
     public void setTurmas(Turma turma) {
         this.turmas.add(turma);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Curso)) return false;
+        Curso curso = (Curso) o;
+        return Objects.equals(getId(), curso.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

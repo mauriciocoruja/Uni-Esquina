@@ -1,15 +1,14 @@
 package com.uniesquina.uniesquinaapi.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_avaliacao")
-public class
-Avaliacao {
+public class Avaliacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
