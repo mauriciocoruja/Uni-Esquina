@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Date;
 
 @SpringBootApplication
-public class UniesquinaApiApplication implements CommandLineRunner {
+public class UniesquinaApiApplication {
 
 
 	@Autowired
@@ -20,11 +20,4 @@ public class UniesquinaApiApplication implements CommandLineRunner {
 		SpringApplication.run(UniesquinaApiApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-
-		Avaliacao avaliacao1 = new Avaliacao(1L,9.5, new Date());
-
-		avaliacaoRepository.save(avaliacao1);
-	}
 }
