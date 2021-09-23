@@ -19,7 +19,8 @@ public class Curso implements Serializable {
     private Double valor;
     private Double notaMinima;
 
-    @OneToMany(mappedBy = "curso")
+    @OneToMany
+    @JoinColumn(name = "curso_id")
     private Set<Turma> turmas = new HashSet<>();
 
     public Curso() {

@@ -30,11 +30,13 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Turma turma1 = new Turma(null, "A001", new Date(),30, null);
+        turmaRepository.save(turma1);
         Aluno aluno1 = new Aluno(null,"Mauricio Coruja","000000000000", new Date(), null);
         alunoRepository.save(aluno1);
 
-        Turma turma1 = new Turma(null, "A001", new Date(),30, null);
-        turmaRepository.save(turma1);
+        aluno1.getTurmas().add(turma1);
+        alunoRepository.save(aluno1);
 
         Matricula matricula1 = new Matricula(aluno1, turma1, new Date(), 48);
         matriculaRepository.save(matricula1);
@@ -54,6 +56,8 @@ public class TestConfig implements CommandLineRunner {
 
         avaliacaoRepository.saveAll(Arrays.asList(avaliacao1,avaliacao2));
         resultadoRepository.saveAll(Arrays.asList(resultado1,resultado2));
+
+
 
     }
 }

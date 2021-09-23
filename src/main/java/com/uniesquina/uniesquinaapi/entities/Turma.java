@@ -23,13 +23,13 @@ public class Turma implements Serializable {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(
-            name = "tb_turma_alunos",
+            name = "tb_alunos_turma",
             joinColumns =
-            @JoinColumn(name = "turma_id", referencedColumnName = "id"),
+            @JoinColumn(name = "aluno_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "aluno_id", referencedColumnName = "id"))
+            @JoinColumn(name = "turma_id", referencedColumnName = "id"))
     private Set<Aluno> alunos = new HashSet<>();
 
 

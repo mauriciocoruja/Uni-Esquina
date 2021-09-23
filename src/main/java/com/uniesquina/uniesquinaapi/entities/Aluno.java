@@ -1,5 +1,7 @@
 package com.uniesquina.uniesquinaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,14 +21,15 @@ public class Aluno implements Serializable {
     private String cpf;
     private Date nascimento;
 
-    @OneToOne(mappedBy = "id.aluno")
-    private Matricula matricula;
 
     @ManyToMany(mappedBy = "alunos")
     private Set<Turma> turmas = new HashSet<>();
 
     @ManyToMany(mappedBy = "alunos")
     private Set<Avaliacao> avaliacoes = new HashSet<>();
+
+    @OneToOne(mappedBy = "id.aluno")
+    private Matricula matricula;
 
     @OneToMany(mappedBy = "id.aluno")
     private Set<Resultado> resultados = new HashSet<>();
@@ -86,13 +89,9 @@ public class Aluno implements Serializable {
         return avaliacoes;
     }
 
-//    public Set<Turma> getTurmas() {
-//        return turmas;
-//    }
-//
-//    public void addTurma(Turma turma) {
-//        this.turmas.add(turma);
-//    }
+    public Set<Turma> getTurmas() {
+        return turmas;
+    }
 
     public Set<Resultado> getResultados() {
         return resultados;

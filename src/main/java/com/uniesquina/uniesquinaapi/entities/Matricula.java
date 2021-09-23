@@ -1,5 +1,6 @@
 package com.uniesquina.uniesquinaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uniesquina.uniesquinaapi.entities.pk.MatriculaPK;
 
 import javax.persistence.EmbeddedId;
@@ -26,6 +27,16 @@ public class Matricula implements Serializable {
         id.setTurma(turma);
         this.dataMatricula = dataMatricula;
         this.prestacoes = prestacoes;
+    }
+
+    @JsonIgnore
+    public Turma getTurma() {
+        return id.getTurma();
+    }
+
+    @JsonIgnore
+    public Aluno getAluno() {
+        return id.getAluno();
     }
 
     public Date getDataMatricula() {
